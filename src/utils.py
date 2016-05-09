@@ -14,9 +14,13 @@ def get_strategy(length):
     return probabilities, costs
 
 
-def generate_states(number_of_states):
-    strategies_max = 5
+def generate_states(number_of_states, strategies_max=5):
+    """
 
+    :param number_of_states:
+    :param strategies_max:
+    :return: dictionary with keys in range(0, number_of_states) and pairs (strategies~[], costs~[]) as values
+    """
     states = {}
     for j in range(0, number_of_states):
         n = int(2 + np.random.random() * (strategies_max - 2))  # number of strategies
