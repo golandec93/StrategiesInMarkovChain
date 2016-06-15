@@ -11,7 +11,7 @@ def get_strategy(length):
     probabilities /= np.sum(probabilities)
     costs = (50 * np.random.random() - 30 * np.random.random()) * np.random.sample(length)
     costs -= np.average(costs) * (np.random.random() ** 2)
-    return probabilities, costs
+    return np.asarray(probabilities), np.asarray(costs)
 
 
 def generate_states(number_of_states, strategies_max=5):
@@ -33,10 +33,25 @@ def generate_states(number_of_states, strategies_max=5):
     return states
 
 
-def print_states(states):
+def states_to_string(states):
     number_of_states = len(states)
+    string = ''
     for i in np.arange(0, number_of_states):
         strategies, costs = states[i]
-        print('state {0} :'.format(i + 1))
+        string += 'state {0} :\n'.format(i + 1)
         for j in np.arange(0, len(strategies)):
-            print('    {0} //// {1}'.format(str(strategies[j]), str(costs[j])))
+            string += '    {0} //// {1}\n'.format(str(strategies[j]), str(costs[j]))
+    return string
+
+
+def print_states(states):
+    print(states_to_string(states))
+
+
+def get_sample():
+    return {
+        0: ([np.asarray([0.5, 0.5]), np.asarray([0.8, 0.2])],
+            [np.asarray([9, 3]), np.asarray([4, 4])]),
+        1: ([np.asarray([0.4, 0.6]), np.asarray([0.7, 0.3])],
+            [np.asarray([3, -7]), np.asarray([1, -19])])
+    }
