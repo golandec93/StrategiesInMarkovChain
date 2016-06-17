@@ -1,4 +1,5 @@
 import numpy as np
+from src.utils import get_q
 
 
 def eval_behavior(states, debug_enabled=False):
@@ -8,18 +9,6 @@ def eval_behavior(states, debug_enabled=False):
             for obj in objects:
                 res += str(obj) + " "
             print("[DEBUG] " + res)
-
-    def get_q(states):
-        q = {}
-        number_of_states = len(states)
-        for i in range(0, number_of_states):
-            probs, costs = states[i]
-            number_of_stratagies = len(probs)
-            qq = np.ndarray(number_of_stratagies)
-            for j in np.arange(0, number_of_stratagies):
-                qq[j] = (np.sum(probs[j] * costs[j]))
-            q[i] = qq
-        return q
 
     # init data
     q = get_q(states)

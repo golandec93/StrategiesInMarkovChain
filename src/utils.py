@@ -50,8 +50,65 @@ def print_states(states):
 
 def get_sample():
     return {
-        0: ([np.asarray([0.5, 0.5]), np.asarray([0.8, 0.2])],
-            [np.asarray([9, 3]), np.asarray([4, 4])]),
-        1: ([np.asarray([0.4, 0.6]), np.asarray([0.7, 0.3])],
-            [np.asarray([3, -7]), np.asarray([1, -19])])
+        0: ([np.asarray([0.5, 0.5]),
+             np.asarray([0.8, 0.2])
+             ],
+            [np.asarray([9, 3]),
+             np.asarray([4, 4])
+             ]
+            ),
+
+        1: ([np.asarray([0.4, 0.6]),
+             np.asarray([0.7, 0.3])
+             ],
+            [np.asarray([3, -7]),
+             np.asarray([1, -19])
+             ]
+            )
     }
+
+
+def get_second_sample():
+    return {
+        0: ([np.asarray([1, 0, 0]),
+             np.asarray([0, 1, 0]),
+             np.asarray([0, 0, 1])
+             ],
+            [np.asarray([1, 0, 0]),
+             np.asarray([0, 2, 0]),
+             np.asarray([0, 0, 3])
+             ]
+            ),
+
+        1: ([np.asarray([1, 0, 0]),
+             np.asarray([0, 1, 0]),
+             np.asarray([0, 0, 1])
+             ],
+            [np.asarray([6, 0, 0]),
+             np.asarray([0, 4, 0]),
+             np.asarray([0, 0, 5])
+             ]
+            ),
+        2: ([np.asarray([1, 0, 0]),
+             np.asarray([0, 1, 0]),
+             np.asarray([0, 0, 1])
+             ],
+            [np.asarray([8, 0, 0]),
+             np.asarray([0, 9, 0]),
+             np.asarray([0, 0, 7])
+             ]
+            )
+    }
+
+
+def get_q(states):
+    q = {}
+    number_of_states = len(states)
+    for i in range(0, number_of_states):
+        probs, costs = states[i]
+        number_of_strategies = len(probs)
+        qq = np.ndarray(number_of_strategies)
+        for j in np.arange(0, number_of_strategies):
+            qq[j] = (np.sum(probs[j] * costs[j]))
+        q[i] = qq
+    return q
