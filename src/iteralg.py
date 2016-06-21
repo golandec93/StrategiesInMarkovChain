@@ -25,7 +25,7 @@ def eval_behavior(states, debug_enabled=False):
     iterations = 0
     behavior = [x]
     income = [current_income]
-    while stop_flag != 3 and iterations < 100:
+    while stop_flag != 1 and iterations < 100:
         # step 1 parameters: states, x
         debug("iteration: ", iterations)
         p_matrix = np.ndarray((number_of_states, number_of_states))

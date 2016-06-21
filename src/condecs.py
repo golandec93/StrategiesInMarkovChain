@@ -12,9 +12,9 @@ def eval_behavior(states, number_of_iterations=10, debug_enabled=False):
     number_of_states = len(states)
     behavior = []
     income = []
-    v_old = np.empty(number_of_states)
+    v_old = np.zeros(number_of_states)
 
-    # evaluating for 1 step of algorithm
+    '''# evaluating for 1 step of algorithm
     d = np.empty(number_of_states)
     v_new = np.empty(number_of_states)
     for i in np.arange(0, number_of_states):
@@ -26,29 +26,28 @@ def eval_behavior(states, number_of_iterations=10, debug_enabled=False):
         v_new[i] = np.max(v_i)
         d[i] = np.argmax(v_i) + 1
     income.append(v_new)
-    behavior.append(d)
+    behavior.append(d)'''
 
-    if number_of_iterations > 1:
-        for step in np.arange(1, number_of_iterations):
-            d = np.empty(number_of_states)
-            v_new = np.empty(number_of_states)
-            for i in np.arange(0, number_of_states):
-                strategies, costs = states[i]
-                number_of_strategies = len(strategies)
-                v_i = np.empty(number_of_strategies)
+    for step in np.arange(0, number_of_iterations):
+        d = np.empty(number_of_states)
+        v_new = np.empty(number_of_states)
+        for i in np.arange(0, number_of_states):
+            strategies, costs = states[i]
+            number_of_strategies = len(strategies)
+            v_i = np.empty(number_of_strategies)
 
-                for k in np.arange(0, number_of_strategies):
-                    if step == 0:
-                        v_i[k] = np.sum(strategies[k] * costs[k])
-                    else:
-                        v_i[k] = np.sum(strategies[k] * costs[k]) + sum(strategies[k] * v_old)
+            for k in np.arange(0, number_of_strategies):
+                if step == 0:
+                    v_i[k] = np.sum(strategies[k] * costs[k])
+                else:
+                    v_i[k] = np.sum(strategies[k] * costs[k]) + sum(strategies[k] * v_old)
 
-                v_new[i] = np.max(v_i)
-                d[i] = np.argmax(v_i) + 1
+            v_new[i] = np.max(v_i)
+            d[i] = np.argmax(v_i) + 1
 
-            behavior.append(d)
-            income.append(v_new)
-            v_old = v_new
+        behavior.append(d)
+        income.append(v_new)
+        v_old = v_new
 
     debug("behavior")
     for d in behavior:
