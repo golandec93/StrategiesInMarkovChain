@@ -112,3 +112,27 @@ def get_q(states):
             qq[j] = (np.sum(probs[j] * costs[j]))
         q[i] = qq
     return q
+
+
+def input_states():
+    print("input number of states: ")
+    number_of_states = int(input())
+    states = {}
+    for i in range(0, number_of_states):
+        print("input number of strategies in state " + str(i))
+        number_of_strateges = int(input())
+        probs = []
+        print("\n<input probabilities for each strategy>\n")
+        for k in range(0, number_of_strateges):
+            probs.append(np.asarray(read_and_parse()))
+        print("\n<input costs for each strategy>\n")
+        costs = []
+        for k in range(0, number_of_strateges):
+            costs.append(np.asarray(read_and_parse()))
+        states[i] = (probs, costs)
+    return states
+
+
+def read_and_parse():
+    mystr = input()
+    return [int(s) if s.isdigit() else float(s) for s in mystr.split()]
